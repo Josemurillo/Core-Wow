@@ -128,8 +128,9 @@ public:
 
                 return;
             }
-
-            if (InciteChaos_Timer <= diff)
+			
+			// Eliminamos las spells incitar el caos porque hace que el boss se resetee y perdamos completamente el control del pj hasta que no morimos
+            /*if (InciteChaos_Timer <= diff)
             {
                 DoCast(me, SPELL_INCITE_CHAOS);
 
@@ -146,7 +147,7 @@ public:
                 InciteChaos_Timer = 40000;
                 return;
             } else InciteChaos_Timer -= diff;
-
+			*/
             //Charge_Timer
             if (Charge_Timer <= diff)
             {

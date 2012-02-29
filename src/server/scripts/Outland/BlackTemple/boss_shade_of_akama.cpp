@@ -109,6 +109,8 @@ static Location BrokenWP[]=
 
 const uint32 spawnEntries[4]= { 23523, 23318, 23524 };
 
+uint32 DeathCount;
+
 class mob_ashtongue_channeler : public CreatureScript
 {
 public:
@@ -126,7 +128,9 @@ public:
         uint64 ShadeGUID;
 
         void Reset() {}
-        void JustDied(Unit* /*killer*/);
+        void JustDied(Unit* /*killer*/){
+			++DeathCount;
+		}
         void EnterCombat(Unit* /*who*/) {}
         void AttackStart(Unit* /*who*/) {}
         void MoveInLineOfSight(Unit* /*who*/) {}
@@ -218,7 +222,7 @@ public:
         uint64 AkamaGUID;
 
         uint32 SorcererCount;
-        uint32 DeathCount;
+        
 
         uint32 ReduceHealthTimer;
         uint32 SummonTimer;
@@ -310,7 +314,7 @@ public:
 
                             Channeler->CastSpell(me, SPELL_SHADE_SOUL_CHANNEL, true);
                             Channeler->CastSpell(me, SPELL_SHADE_SOUL_CHANNEL_2, true);
-                            Channeler->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE);
+                            //Channeler->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE);
                             GridSearcherSucceeded = true;
                         }
                     }
@@ -358,7 +362,6 @@ public:
                     Sorcerer->GetMotionMaster()->MovePoint(0, me->GetPositionX(), me->GetPositionY(), me->GetPositionZ());
                     Sorcerer->SetTarget(me->GetGUID());
                     Sorcerers.push_back(Sorcerer->GetGUID());
-                    --DeathCount;
                     ++SorcererCount;
                 }
             }
@@ -452,7 +455,7 @@ public:
                 if (SummonTimer <= diff)
                 {
                     SummonCreature();
-                    SummonTimer = 35000;
+                    SummonTimer = 10000;
                 } else SummonTimer -= diff;
 
                 if (DeathCount >= 6)
@@ -520,13 +523,14 @@ public:
 
 };
 
-void mob_ashtongue_channeler::mob_ashtongue_channelerAI::JustDied(Unit* /*killer*/)
-{
+
+/* void mob_ashtongue_channeler::mob_ashtongue_channelerAI::JustDied(Unit* ){
     Creature* Shade = (Unit::GetCreature((*me), ShadeGUID));
     if (Shade && Shade->isAlive())
         CAST_AI(boss_shade_of_akama::boss_shade_of_akamaAI, Shade->AI())->IncrementDeathCount();
     else sLog->outError("SD2 ERROR: Channeler dead but unable to increment DeathCount for Shade of Akama.");
 }
+*/
 
 void mob_ashtongue_sorcerer::mob_ashtongue_sorcererAI::JustDied(Unit* /*killer*/)
 {
