@@ -454,7 +454,7 @@ void Spell::EffectSchoolDMG(SpellEffIndex effIndex)
                 // Bloodthirst
                 if (m_spellInfo->SpellFamilyFlags[1] & 0x400){
                     ApplyPctF(damage, m_caster->GetTotalAttackPowerValue(BASE_ATTACK));
-					m_caster-> AddAura(23885, m_caster);
+					m_caster-> AddAura(55970, m_caster);
 				}
                 // Shield Slam
                 else if (m_spellInfo->SpellFamilyFlags[1] & 0x200 && m_spellInfo->Category == 1209)
