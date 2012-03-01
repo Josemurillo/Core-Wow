@@ -2149,8 +2149,10 @@ public:
                 DoCast(me->getVictim(), SPELL_PARALYZE, true);
             }
             // Kill our target if we're very close.
-            if (me->IsWithinDistInMap(me->getVictim(), 3))
+			// Eliminada esta spall porque mataba a todos los jugadores.
+           /* if (me->IsWithinDistInMap(me->getVictim(), 3))
                 DoCast(me->getVictim(), SPELL_CONSUME_SOUL);
+			*/
         }
     };
 
