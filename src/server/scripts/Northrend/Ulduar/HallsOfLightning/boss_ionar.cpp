@@ -359,7 +359,7 @@ public:
                             Position pos;
                             pIonar->GetPosition(&pos);
 
-                            me->SetSpeed(MOVE_RUN, 2.0f);
+                            //me->SetSpeed(MOVE_RUN, 2.0f);
                             me->GetMotionMaster()->Clear();
                             me->GetMotionMaster()->MovePoint(DATA_POINT_CALLBACK, pos);
                         }
