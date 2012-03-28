@@ -1645,11 +1645,12 @@ void Spell::EffectTriggerSpell(SpellEffIndex effIndex)
                 return;
             }
             // Righteous Defense
-            case 31980:
+			// Reparacion de defensa recta
+            /*case 31980:
             {
                 m_caster->CastSpell(unitTarget, 31790, true);
                 return;
-            }
+            }*/
             // Cloak of Shadows
             case 35729:
             {
