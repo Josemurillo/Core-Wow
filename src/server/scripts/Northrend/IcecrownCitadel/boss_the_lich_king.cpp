@@ -537,6 +537,8 @@ class boss_the_lich_king : public CreatureScript
             {
                 _JustReachedHome();
                 instance->SetBossState(DATA_THE_LICH_KING, NOT_STARTED);
+				me->ApplySpellImmune(0, IMMUNITY_STATE, SPELL_AURA_MOD_TAUNT, false);
+				me->ApplySpellImmune(0, IMMUNITY_EFFECT, SPELL_EFFECT_ATTACK_ME, false);
 
                 // Reset The Frozen Throne gameobjects
                 FrozenThroneResetWorker reset;
@@ -806,6 +808,8 @@ class boss_the_lich_king : public CreatureScript
                         SendMusicToPlayers(MUSIC_SPECIAL);
                         me->SetReactState(REACT_PASSIVE);
                         me->AttackStop();
+						me->ApplySpellImmune(0, IMMUNITY_STATE, SPELL_AURA_MOD_TAUNT, true);
+						me->ApplySpellImmune(0, IMMUNITY_EFFECT, SPELL_EFFECT_ATTACK_ME, true);
                         DoCast(me, SPELL_REMORSELESS_WINTER_1);
                         events.DelayEvents(62500, EVENT_GROUP_BERSERK); // delay berserk timer, its not ticking during phase transitions
                         events.ScheduleEvent(EVENT_QUAKE, 62500, 0, PHASE_TRANSITION);
@@ -823,6 +827,8 @@ class boss_the_lich_king : public CreatureScript
                         SendMusicToPlayers(MUSIC_SPECIAL);
                         me->SetReactState(REACT_PASSIVE);
                         me->AttackStop();
+						me->ApplySpellImmune(0, IMMUNITY_STATE, SPELL_AURA_MOD_TAUNT, true);
+						me->ApplySpellImmune(0, IMMUNITY_EFFECT, SPELL_EFFECT_ATTACK_ME, true);
                         DoCast(me, SPELL_REMORSELESS_WINTER_2);
                         summons.DespawnEntry(NPC_VALKYR_SHADOWGUARD);
                         events.DelayEvents(62500, EVENT_GROUP_BERSERK); // delay berserk timer, its not ticking during phase transitions
@@ -968,6 +974,8 @@ class boss_the_lich_king : public CreatureScript
                             events.SetPhase(PHASE_TWO);
                             me->ClearUnitState(UNIT_STAT_CASTING);  // clear state to ensure check in DoCastAOE passes
                             DoCastAOE(SPELL_QUAKE);
+							me->ApplySpellImmune(0, IMMUNITY_STATE, SPELL_AURA_MOD_TAUNT, false);
+							me->ApplySpellImmune(0, IMMUNITY_EFFECT, SPELL_EFFECT_ATTACK_ME, false);
                             SendMusicToPlayers(MUSIC_SPECIAL);
                             Talk(SAY_LK_QUAKE);
                             break;
@@ -975,6 +983,8 @@ class boss_the_lich_king : public CreatureScript
                             events.SetPhase(PHASE_THREE);
                             me->ClearUnitState(UNIT_STAT_CASTING);  // clear state to ensure check in DoCastAOE passes
                             DoCastAOE(SPELL_QUAKE);
+							me->ApplySpellImmune(0, IMMUNITY_STATE, SPELL_AURA_MOD_TAUNT, false);
+							me->ApplySpellImmune(0, IMMUNITY_EFFECT, SPELL_EFFECT_ATTACK_ME, false);
                             SendMusicToPlayers(MUSIC_SPECIAL);
                             Talk(SAY_LK_QUAKE);
                             break;
