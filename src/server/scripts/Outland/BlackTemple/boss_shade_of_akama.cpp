@@ -129,7 +129,7 @@ public:
 
         void Reset() {}
         void JustDied(Unit* /*killer*/){
-			
+			++DeathCount;
 		}
         void EnterCombat(Unit* /*who*/) {}
         void AttackStart(Unit* /*who*/) {}
@@ -524,12 +524,12 @@ public:
 };
 
 
- void mob_ashtongue_channeler::mob_ashtongue_channelerAI::JustDied(Unit* ){
+/* void mob_ashtongue_channeler::mob_ashtongue_channelerAI::JustDied(Unit* ){
     Creature* Shade = (Unit::GetCreature((*me), ShadeGUID));
     if (Shade && Shade->isAlive())
         CAST_AI(boss_shade_of_akama::boss_shade_of_akamaAI, Shade->AI())->IncrementDeathCount();
     else sLog->outError("SD2 ERROR: Channeler dead but unable to increment DeathCount for Shade of Akama.");
-}
+}*/
 
 
 void mob_ashtongue_sorcerer::mob_ashtongue_sorcererAI::JustDied(Unit* /*killer*/)
