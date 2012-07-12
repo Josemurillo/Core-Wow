@@ -101,6 +101,7 @@ static Position2d Coords[]=
     {450.4f, 168.3f}
 };
 
+InstanceScript* instance;
 class npc_enslaved_soul : public CreatureScript
 {
 public:
@@ -148,7 +149,7 @@ public:
             EssenceGUID = 0;
         }
 
-        InstanceScript* instance;
+        
 
         uint64 EssenceGUID;
 
@@ -405,9 +406,11 @@ public:
             if (damage >= me->GetHealth())
             {
                 damage = 0;
-                me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE);
+                //me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE);
                 me->Yell(SUFF_SAY_RECAP, LANG_UNIVERSAL, 0);
                 DoScriptText(SUFF_SAY_RECAP, me);
+				me->DespawnOrUnsummon();
+				Creature* esenceofdes = DoSpawnCreature(23419, 0, 0, 0, 0, TEMPSUMMON_DEAD_DESPAWN, 0);
             }
         }
 
@@ -516,23 +519,19 @@ public:
             DeadenTimer = 30000;
             SoulShockTimer = 5000;
             me->ApplySpellImmune(0, IMMUNITY_STATE, SPELL_AURA_MOD_CONFUSE, true);
+			
         }
 
         void DamageTaken(Unit* done_by, uint32 &damage)
         {
-            if (done_by == me)
-                return;
 
             if (damage >= me->GetHealth())
             {
                 damage = 0;
-                me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE);
+                //me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE);
                 DoScriptText(SUFF_SAY_RECAP, me);
-            }
-            else
-            {
-                int32 bp0 = damage / 2;
-                me->CastCustomSpell(done_by, AURA_OF_DESIRE_DAMAGE, &bp0, NULL, NULL, true);
+				me->DespawnOrUnsummon();
+				Creature* esenceofinqui = DoSpawnCreature(23420, 0, 0, 0, 0, TEMPSUMMON_DEAD_DESPAWN, 0);
             }
         }
 
@@ -643,8 +642,10 @@ public:
         void JustDied(Unit* /*victim*/)
         {
             DoScriptText(ANGER_SAY_DEATH, me);
+			if (instance){
+			instance->SetData(DATA_RELIQUARYOFSOULSEVENT, DONE);
+			}
         }
-
         void KilledUnit(Unit* /*victim*/)
         {
             DoScriptText(RAND(ANGER_SAY_SLAY1, ANGER_SAY_SLAY2), me);
