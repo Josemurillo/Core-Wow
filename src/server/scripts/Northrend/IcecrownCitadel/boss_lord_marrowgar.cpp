@@ -382,7 +382,8 @@ class npc_bone_spike : public CreatureScript
             void IsSummonedBy(Unit* summoner)
             {
                 DoCast(summoner, SPELL_IMPALED);
-                summoner->CastSpell(me, SPELL_RIDE_VEHICLE, true);
+                //summoner->CastSpell(me,SPELL_RIDE_VEHICLE,true);
+				me->AddAura(SPELL_RIDE_VEHICLE,summoner);
                 _events.ScheduleEvent(EVENT_FAIL_BONED, 8000);
                 _hasTrappedUnit = true;
             }
