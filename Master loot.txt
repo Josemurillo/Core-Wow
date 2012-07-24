@@ -1,0 +1,20 @@
+diff --git a/src/server/game/Server/Protocol/Handlers/GroupHandler.cpp b/src/server/game/Server/Protocol/Handlers/GroupHandler.cpp
+index b906aab..ca73d4a 100755
+--- a/src/server/game/Server/Protocol/Handlers/GroupHandler.cpp
++++ b/src/server/game/Server/Protocol/Handlers/GroupHandler.cpp
+@@ -422,6 +423,15 @@ void WorldSession::HandleLootMethodOpcode(WorldPacket & recv_data)
+     /** error handling **/
+     if (!group->IsLeader(GetPlayer()->GetGUID()))
+         return;
++    if(GetPlayer()->isInCombat())
++	{
++	std::string str = "";
++	str = "Modifying loot mode is disabled at this time.";
++	WorldPacket data(SMSG_NOTIFICATION, (str.size()+1));
++	data << str;
++	sWorld->SendGlobalGMMessage(&data);
++	return;
++	}
+     /********************/
+ 
+     // everything's fine, do it
