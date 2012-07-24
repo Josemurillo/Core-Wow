@@ -126,7 +126,8 @@ enum Quests
 
 static Position SpawnLocations[]=
 {
-    {946.992f, 397.016f, 208.374f, 0.0f},
+	// Modificada la posicion de aparicion de los npc del evento de Brann.
+    {911.863f, 345.596f, 203.706f, 0.0f},
     {960.748f, 382.944f, 208.374f, 0.0f},
 };
 
