@@ -49,9 +49,9 @@ EndScriptData */
 #define ADD_Z1 476.800476f
 #define ADD_Z2 476.796570f
 
-#define NEF_X   -7445
-#define NEF_Y   -1332
-#define NEF_Z   536
+#define NEF_X   -7533.51f
+#define NEF_Y   -1279.50f
+#define NEF_Z   476.80f
 
 #define HIDE_X  -7592
 #define HIDE_Y  -1264
@@ -343,9 +343,10 @@ public:
                         //Teleport self to a hiding spot (this causes errors in the Trinity log but no real issues)
                         DoTeleportTo(HIDE_X, HIDE_Y, HIDE_Z);
                         me->AddUnitState(UNIT_STAT_FLEEING);
+						me->SetVisible(false);
 
                         //Spawn nef and have him attack a random target
-                        Creature* Nefarian = me->SummonCreature(CREATURE_NEFARIAN, NEF_X, NEF_Y, NEF_Z, 0, TEMPSUMMON_TIMED_DESPAWN_OUT_OF_COMBAT, 120000);
+						Creature* Nefarian = me->SummonCreature(CREATURE_NEFARIAN, NEF_X, NEF_Y, NEF_Z, 0, TEMPSUMMON_CORPSE_TIMED_DESPAWN, 600000);
                         target = SelectTarget(SELECT_TARGET_RANDOM, 0, 100, true);
                         if (target && Nefarian)
                         {
